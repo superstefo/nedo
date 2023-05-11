@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-//  import irLogic1 from "./irLogic1";
 
 const IR = ({ handleSubmitFunc }) => {
   const [formData, setFormData] = useState({
@@ -24,10 +23,8 @@ const IR = ({ handleSubmitFunc }) => {
 
   const submitForm = (e) => {
 
-    e.preventDefault();
+    // e.preventDefault();
 
-    // console.log(formData);
-    //  irLogic1.get1();
     handleSubmitFunc(formData);
 
   }

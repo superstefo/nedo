@@ -7,9 +7,9 @@ class Page extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isShown : false
+      isShown: false
     };
-    this.ir =  irLogic1;
+    this.ir = irLogic1;
   }
 
   componentDidMount() {
@@ -19,7 +19,7 @@ class Page extends React.Component {
   }
 
   changeState = () => {
-   // this.setState({ isShown: false }, () => {console.log("callback =false")});
+    // this.setState({ isShown: false }, () => {console.log("callback =false")});
   }
 
   getData = (data) => {
@@ -27,25 +27,25 @@ class Page extends React.Component {
     console.log(data);
     irLogic1.get1()
     irLogic1("sd")
-   }
- 
+  }
+
 
 
   render() {
-    
+
 
     return (
 
       <div className="flex min-h-screen flex-col items-center justify-between p-24">
-        
-<IR handleSubmitFunc={this.getData}/>
 
-{  (this.state.isShown) ? <div>kooor2</div> : <div>kooor1</div>
+        <IR handleSubmitFunc={this.getData} />
 
-}
+        {(this.state.isShown) ? <div>kooor2</div> : <div>kooor1</div>
 
-  </div>
-  
+        }
+
+      </div>
+
     )
   }
 }
