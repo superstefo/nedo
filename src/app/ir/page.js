@@ -1,15 +1,16 @@
 "use client";
 import React from 'react';
 import IR from "./ir"
+import IrResult from './irResult';
 import irLogic1 from './irLogic1';
 
 class Page extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isShown: false
+      isShown: false,
+      irResult: ""
     };
-    this.ir = irLogic1;
   }
 
   componentDidMount() {
@@ -18,34 +19,17 @@ class Page extends React.Component {
   componentWillUnmount() {
   }
 
-  changeState = () => {
-    // this.setState({ isShown: false }, () => {console.log("callback =false")});
-  }
-
   getData = (data) => {
-    console.log("stefo data:");
-    console.log(data);
-    irLogic1.get1()
-    irLogic1("sd")
+     let irResult1 = irLogic1(data);
+     this.setState({ isShown: true, irResult: irResult1});
   }
-
-
 
   render() {
-
-
     return (
-
       <div className="flex min-h-screen flex-col items-center justify-between p-24">
-
         <IR handleSubmitFunc={this.getData} />
-
-        {(this.state.isShown) ? <div>kooor2</div> : <div>kooor1</div>
-
-        }
-
+        {(this.state.isShown) ? <IrResult result={this.state.irResult} /> : <div></div>}
       </div>
-
     )
   }
 }

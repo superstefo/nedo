@@ -1,65 +1,79 @@
-
-
-// insuline0: "",
-// glucose0: "",
-// insuline60: "",
-// glucose60: "",
-// insuline120: "",
-// glucose120: ""
-
 const irLogic1 = (input) => {
   let result = {
     ir: checkInsulineResistance(input),
     hypoglycemy: "",
     diabetes: "",
-    homaIR: 0
+    homaIndex: getHomaIndex(input)
   };
 
-  console.log("stuff1 ");
-  checkInsulineResistance(result, input);
-
-
+  return result;
 }
 
 
+const getHomaIndex = (input) => {
+  let result;
+  try {
+    result = Math.round((input.insuline0 * input.glucose0 / 22.5) * 100) / 100;
+  } catch (error) {
+    return "Вашият резултат не може да бъде изчислен на база на дадените стойности на инсулин и глюкоза.";
+  }
+  return "Вашият HOMA IR индекс е: " + result + "; Повечето здрави хора имат стойности на HOMA IR по-ниски от 2.50.";
+}
 
 const checkInsulineResistance = (input) => {
-  let result = "Няма инсулинова резистентност на 0 минута;";
-  if (input.insuline0 > 9 && input.insuline0 < 12) {
-    result = "Открива се слаба инсулинова резистентност на 0 минута; "
-  } else if (input.insuline0 > 15) {
-    result = "Открива се силна инсулинова резистентност на 0 минута; "
+  let result = [];
+  if (input.insuline0 > 1) {
+    result.push(checkInsulineResistance0min(input))
   }
-  result = result + "\n";
-
-  if (input.insuline60 < 30) {
-    result = result + "Няма инсулинова резистентност на 60та минута; "
-  } else if (input.insuline60 < 50) {
-    result = result + "Открива се слаба инсулинова резистентност на 60та минута; "
-  } else if (input.insuline60 <= 80) {
-    result = result + "Открива се силна инсулинова резистентност на 60та минута; "
-  } else if (input.insuline60 > 80) {
-    result = result + "Открива се много силна инсулинова резистентност на 60та минута; "
+  if (input.insuline60 > 10) {
+    result.push(checkInsulineResistance60min(input))
   }
-  result = result + "\n";
-
-  if (input.insuline120 > 30) {
-    result = result + "Открива се слаба инсулинова резистентност на 120та минута; "
-  } else if (input.insuline120 <= 80) {
-    result = result + "Открива се силна инсулинова резистентност на 120та минута; "
-  } else if (input.insuline120 > 80) {
-    result = result + "Открива се много силна инсулинова резистентност на 120та минута; "
+  if (input.insuline120 > 1) {
+    result.push(checkInsulineResistance120min(input))
   }
-
   return result
-
 }
 
-// irLogic1.get1 = (stuff) => {
-//   console.log(" sss123321 stuff");
-//   console.log(stuff);
-//   console.log(irLogic1);
+const checkInsulineResistance0min = (input) => {
+  let result = 0;
+  if (input.insuline0 > 6 && input.insuline0 < 11) {
+    result = 1;
+  } else if (input.insuline0 < 15) {
+    result = 2;
+  } else if (input.insuline0 >= 15) {
+    result = 3;
+  }
+  return { "check": "0 минута", "result": result };
+}
 
-// }
+const checkInsulineResistance60min = (input) => {
+  let result;
+  if (input.insuline60 < 40) {
+    result = 0;
+  } else if (input.insuline60 < 50) {
+    result = 1;
+  } else if (input.insuline60 <= 80) {
+    result = 2;
+  } else if (input.insuline60 > 80) {
+    result = 3;
+  }
+
+  return { "check": "60 минута", "result": result };
+}
+
+const checkInsulineResistance120min = (input) => {
+  let result;
+  if (input.insuline120 < 9) {
+    result = 0;
+  } else if (input.insuline120 < 15) {
+    result = 1;
+  } else if (input.insuline120 <= 30) {
+    result = 2;
+  } else if (input.insuline120 > 30) {
+    result = 3;
+  }
+
+  return { "check": "120 минута", "result": result };
+}
 
 export default irLogic1;
