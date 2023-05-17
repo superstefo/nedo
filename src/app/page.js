@@ -23,7 +23,7 @@ const Item = ({ title, href, info }) => {
 export default function Home() {
   return (
     <div>
-      <main className="flex min-h-screen flex-col items-center p-24">
+      <main className="flex min-h-screen flex-col items-center p-8 ">
         <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-center gap-6 max-w-5xl">
           <br></br>
           <span > koooe Този сайт има за цел да подпомогне лечението на пациенти с инсулинова резистентност и други подобни метаболитни нарушения.
