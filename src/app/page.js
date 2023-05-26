@@ -33,14 +33,14 @@ export default function Home() {
         </div>
         <br></br>
         <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-center">
-          <Item href="/ir" title="Теория" info="информация, статии, материали" />
-          <Item href="/ir" title="Симптоми" info="въпроси и отговори" />
+          <Item href="/theory" title="Теория" info="информация, статии, материали" />
+          <Item href="/" disabled title="Симптоми" info="въпроси и отговори" />
           <Item href="/faq" title="Питанки" info="въпроси и отговори" />
-          <Item href="/ir" title="Дневник" info="хранителен дневник" />
-          <Item href="/ir" title="Анализ" info="анализ на изследвания с изкуствен интелект" />
-          <Item href="/ir" title="Лекарства" info="мнения и препоръки" />
-          <Item href="/ir" title="Лекари" info="мнения и препоръки" />
-          <Item href="/ir" title="Контакти" info="свържете се с нас" />
+          <Item href="/diary" title="Дневник" info="хранителен дневник" />
+          <Item href="/analyse" title="Анализ" info="анализ на изследвания с изкуствен интелект" />
+          <Item href="/drugs" title="Лекарства" info="мнения и препоръки" />
+          <Item href="/doctors" title="Лекари" info="мнения и препоръки" />
+          <Item href="/about" title="Контакти" info="свържете се с нас" />
         </div>
       </main>
     </div>

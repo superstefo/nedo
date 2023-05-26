@@ -26,8 +26,14 @@ const IR = ({ handleSubmitFunc }) => {
   }
 
   return (
-    <div>
-      <h1>Insuline Resistence Calculator</h1>
+    // <div className="flex min-h-screen flex-col items-center justify-between p-24">
+     <div > 
+    {/* <div className="justify-between p-8 max-w-5xl justify-center"> 
+       <h1>Тук може да анализираме резултатите Ви от изследвания. Засега мерната единица за инсулин трябва да е mU/L, а за кръвна захар mmol/L.Важно е да се знае, че това е резултатите не са непогрешими и финалната диагноза винаги ще бъде на лекаря Ви.</h1>
+       </div> */}
+
+
+
       <br></br>
       <div className="grid gap-2 mb-2 md:grid-cols-2">
 

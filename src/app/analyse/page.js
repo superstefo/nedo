@@ -20,8 +20,8 @@ class Page extends React.Component {
   }
 
   getData = (data) => {
-     let irResult1 = irLogic1(data);
-     this.setState({ isShown: true, irResult: irResult1});
+    let irResult1 = irLogic1(data);
+    this.setState({ isShown: true, irResult: irResult1 });
   }
 
   render() {

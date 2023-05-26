@@ -1,8 +1,4 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
 import Link from 'next/link'
-
-const inter = Inter({ subsets: ['latin'] })
 
 const FaqItem = ({ q, a }) => {
   return (
@@ -16,7 +12,7 @@ const FaqItem = ({ q, a }) => {
   );
 }
 
-export default function Page() { ///"flex min-h-screen flex-col items-center justify-between p-24 max-w-5xl justify-center"
+export default function Page() {
   return (
     <main className="flex min-h-screen flex-col items-center">
     <div className=" justify-between p-8 max-w-5xl justify-center">      
