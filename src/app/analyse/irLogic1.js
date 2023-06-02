@@ -1,64 +1,63 @@
-let finalIRresult = [];
-const irLogic1 = (input) => {
-  finalIRresult = [];
-  checkInsulineResistance(input);
-  // let result = {
-  //   ir: checkInsulineResistance(input),
-  //   hypoglycemy: "",
-  //   diabetes: "",
-  //   homaIndex: getHomaIndex(input)
-  // };
+let analysedResults = [];
+let homaIr = null;
+let finalIrStrength = 0;
+let irResult0, irResult60, irResult120 = null;
 
-   return finalIRresult;
+const irLogic1 = (input) => {
+  console.log(irResult0);
+  console.log(irResult60);
+  console.log(irResult120);
+  analysedResults = [];
+
+  checkInsulineResistance(input);
+  let result = {
+    analysedResults: analysedResults,
+    homaIr: homaIr,
+    hypoglycemy: "",
+    diabetes: "",
+    homaIndex: getHomaIndex(input)
+  };
+
+   return result;
 }
 
 const getHomaIndex = (input) => {
   if (!input.insuline0 || !input.glucose0) {
-    return null;
+    return;
   }
-  let result;
+  console.log(input.insuline0 + " " + input.glucose0);
+  let result = "";
   try {
-    result = Math.round((input.insuline0 * input.glucose0 / 22.5) * 100) / 100;
+    homaIr = Math.round((input.insuline0 * input.glucose0 / 22.5) * 100) / 100;
   } catch (error) {
-    return "Вашият HOMA IR индекс не може да бъде изчислен на база на стойностите на инсулин и глюкоза.";
+    result = "Вашият HOMA IR индекс не може да бъде изчислен на база на стойностите на инсулин и глюкоза;";
   }
-  return "Вашият HOMA IR индекс е: " + result + "; Повечето здрави хора имат стойности на HOMA IR по-ниски от 2.50.";
+  result = "Вашият HOMA IR индекс е: " + homaIr + "; Повечето здрави хора имат стойности на HOMA IR по-ниски от 2.50;";
+  analysedResults.push(result);
 }
 
 const checkInsulineResistance = (input) => {
-
-  let result0 = checkInsulineResistance0min(input);
-  let result60 = checkInsulineResistance60min(input);
-  let result120 = checkInsulineResistance120min(input);
-  if (!result0 && !result60 && !result120 ) {
-    finalIRresult.push("Тези измервания на глюкоза и инсулин не са достатъчни за да се каже със сигурност");
-  } else {
-    finalIRresult.push(result0);
-    finalIRresult.push(result60);
-    finalIRresult.push(result120);
+  irResult0 = checkInsulineResistance0min(input);
+  irResult60 = checkInsulineResistance60min(input);
+  irResult120 = checkInsulineResistance120min(input);
+  if (irResult0 !== 0 ) {
+    
   }
-  // if (input.insuline0 <= 0) {
-  //   finalIRresult.push("");
-  //   result.push();
-  // }
-  // if (input.insuline60 > 8) {
-  //   result.push(checkInsulineResistance60min(input));
-  // }
-  // if (input.insuline120 > 1) {
-  //   result.push(checkInsulineResistance120min(input));
-  // }
-  // if (input.insuline120 > 1) {
-  //   result.push(checkInsulineResistance120min(input));
-  // }
-  // console.log(result);
-  return finalIRresult;
+  if (!irResult0 && !irResult60 && !irResult120 ) {
+    analysedResults.push("Не може да се направи качествен анализ на ИР по дадените измервания;");
+  } else {
+    analysedResults.push(irResult0);
+    analysedResults.push(irResult60);
+    analysedResults.push(irResult120);
+  }
+  return analysedResults;
 }
 
 const checkInsulinPeak = (input) => {
   let result = 0;
-   if (input.insuline60 < input.insuline120 ) {
+  if (input.insuline60 < input.insuline120 ) {
     result = 1;
-  } 
+  }
   return { "check": "пик", "result": result };
 }
 
@@ -75,7 +74,8 @@ const checkInsulineResistance0min = (input) => {
   } else if (input.insuline0 >= 15) {
     result = 3;
   }
-  return getSentence(result, 0);
+  irResult0 = result;
+ // return getSentence(result, 0);
 }
  
 const checkInsulineResistance60min = (input) => {
@@ -91,7 +91,8 @@ const checkInsulineResistance60min = (input) => {
   } else if (input.insuline60 >= 70) {
     result = 3;
   }
-  return getSentence(result, 60);
+  irResult60 = result;
+ // return getSentence(result, 60);
 }
 
 const checkInsulineResistance120min = (input) => {
@@ -107,16 +108,20 @@ const checkInsulineResistance120min = (input) => {
   } else if (input.insuline120 >= 30) {
     result = 3;
   }
-  return getSentence(result, 120);
+  irResult120 = result;
+//  return getSentence(result, 120);
 }
 
-const getSentence = (rate, minute) => {
-  if (rate === -1) return null;
-  if (rate === 0) return "НЯМА инсулинова резистентност на " + minute + " минута от теста.";
+const getSentence = (momentaryIrStrength, minute) => {
+  // if (momentaryIrStrength > finalIrStrength ) {
+  //   finalIrStrength = momentaryIrStrength;
+  // }
+  if (momentaryIrStrength === -1) return null;
+  if (momentaryIrStrength === 0) return "Нe се открива инсулинова резистентност на " + minute + " минута от теста.";
   let modifier = "";
-  if (rate === 1) modifier = "СЛАБА";
-  if (rate === 2) modifier = "УМЕРЕНА";
-  if (rate === 3) modifier = "СИЛНА";
+  if (momentaryIrStrength === 1) modifier = "СЛАБА";
+  if (momentaryIrStrength === 2) modifier = "УМЕРЕНА";
+  if (momentaryIrStrength === 3) modifier = "СИЛНА";
   return "Открива се " + modifier + " инсулинова резистентност на " + minute + " минута от теста.";
 }
 

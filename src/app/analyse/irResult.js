@@ -3,9 +3,9 @@ import React from "react";
 
 const IrResult = ({ result }) => {
 
-  const IRResult = () => (
+  const Result = () => (
     <>
-      {result.map((one, ind) => {
+      {result.analysedResults.map((one, ind) => {
         return (
           <label key={ind} className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
             {one != null ? <>{one}</> : <></>}
@@ -16,14 +16,13 @@ const IrResult = ({ result }) => {
   );
 
   return (
-    <div>
-      <br></br>
+    <div className="flex flex-col items-center justify-between p-8">
       <div className="grid gap-4 mb-4 md:grid-cols-1">
         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
           {result.homaIndex}
         </label>
       </div>
-      <IRResult/>
+      <Result/>
     </div>
   )
 }
