@@ -20,15 +20,16 @@ class Page extends React.Component {
   }
 
   getData = (data) => {
-     let irResult1 = irLogic1(data);
-     this.setState({ isShown: true, irResult: irResult1});
+    let irResult1 = irLogic1(data);
+    this.setState({ isShown: true, irResult: irResult1 });
   }
 
   render() {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-between p-24">
+      <div className="min-h-screen">
+        <br></br>
         <IR handleSubmitFunc={this.getData} />
-        {(this.state.isShown) ? <IrResult result={this.state.irResult} /> : <div></div>}
+        {(this.state.isShown) ? <IrResult result={this.state.irResult} /> : <></>}
       </div>
     )
   }
